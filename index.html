@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Lettre d'Amour</title>
+  <style>
+    body {
+      background-image: url(haha.png);
+      margin: 0;
+      padding: 0;
+      background: #fff0f5;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .message {
+      margin-top: 15px;
+      font-size: 20px;
+      color: #d6336c;
+    }
+
+    .envelope {
+      width: 200px;
+      height: 130px;
+      position: relative;
+      cursor: pointer;
+      perspective: 1000px;
+      margin-top: 20px;
+    }
+
+    .lid {
+      width: 100%;
+      height: 100%;
+      background: #ff6b81;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      transform-origin: bottom;
+      transition: transform 1s ease;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+    }
+
+    .body {
+      width: 100%;
+      height: 100%;
+      background: #fce4ec;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      border: 2px solid #ff6b81;
+      box-sizing: border-box;
+    }
+
+    .envelope.open .lid {
+      transform: rotateX(-180deg);
+    }
+
+    .hiddenMessage {
+      display: none;
+      max-height: 60vh;
+      overflow-y: scroll;
+      background: white;
+      padding: 20px;
+      margin-top: 30px;
+      width: 80%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      animation: fadeIn 2s ease forwards;
+      white-space: pre-wrap;
+      border-radius: 12px;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    textarea {
+      margin-top: 20px;
+      width: 80%;
+      height: 100px;
+      resize: vertical;
+      padding: 10px;
+      font-size: 16px;
+      border: 2px solid #ff6b81;
+      border-radius: 8px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: #ff6b81;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #e05570;
+    }
+  </style>
+ 
+</head>
+<body>
+
+  <footer>
+    <p>Créé par Louinice Franso</p>
+    <p>&copy; 2025 Maker web site.com</p>
+  </footer>
+
+
+  <div class="message">💌 C'est pour toi</div>
+
+  <div class="envelope" onclick="openEnvelope()">
+    <div class="lid"></div>
+    <div class="body"></div>
+  </div>
+
+  <textarea id="customMessage" placeholder="Écris ici ton propre message..."></textarea>
+  <button onclick="updateMessage()">Changer le message</button>
+
+  <div class="hiddenMessage" id="messageBox"></div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <script>
+    const messageBox = document.getElementById('messageBox');
+    const textArea = document.getElementById('customMessage');
+
+    // Message par défaut sur 1000 lignes
+    let baseMessage = "T'es jolie, t'es spéciale\n";
+    let finalMessage = baseMessage.repeat(1000);
+
+    function openEnvelope() {
+      document.querySelector('.envelope').classList.add('open');
+      messageBox.innerText = finalMessage;
+      messageBox.style.display = 'block';
+    }
+
+    function updateMessage() {
+      const userText = textArea.value.trim();
+      if (userText.length > 0) {
+        finalMessage = (userText + "\n").repeat(1000);
+        if (document.querySelector('.envelope').classList.contains('open')) {
+          messageBox.innerText = finalMessage;
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>
